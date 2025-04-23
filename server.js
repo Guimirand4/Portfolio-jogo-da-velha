@@ -1,8 +1,9 @@
 const express = require("express");
-const {PrismaClient} = require("@prisma/client");
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 const app = express();
-const prisma = new PrismaClient();
+
 const PORT = 8080;
 
 app.use(express.static("public"));
