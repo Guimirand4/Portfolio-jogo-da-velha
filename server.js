@@ -33,6 +33,14 @@ app.post("/api/v1/usuarios", async (req, res) => {
 }
 );
 
+app.post("/api/v1/login",async (req, res) => {
+    console.log(req);
+    console.log("chegou");
+    res.status(200).json({ message: "Login realizado com sucesso!" });
+
+
+
+});
 app.listen(PORT, () => { 
     console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
