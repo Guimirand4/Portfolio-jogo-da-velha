@@ -34,10 +34,16 @@ app.post("/api/v1/usuarios", async (req, res) => {
 );
 
 app.post("/api/v1/login",async (req, res) => {
-    console.log(req);
-    console.log("chegou");
     res.status(200).json({ message: "Login realizado com Sucesso!" });
 
+    const {email, senha}= req.body;
+    const usuario = await prisma.usuario.findUnique({where:{email,senha}})
+    if(!usuario){
+        return res.status(401).json({error: "Erro ao realizar login"});
+    }
+    else{
+        return res.status(200).json(usuario);
+    }
 
 
 });
