@@ -31,3 +31,17 @@ model Conexao {
   data_solicitacao DateTime @default(now())
   status          Status  @default(criado)
 }
+
+enum PecaDoJogador{
+  x
+  o
+}
+
+model partida_historico{
+  id Int @id @default(autoincrement())
+  id_partida Int
+  id_usuario Int
+  data_solicitacao DateTime @default(now())
+  area_jogada Int
+  peca_do_jogador PecaDoJogador
+}
