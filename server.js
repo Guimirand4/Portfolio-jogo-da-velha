@@ -46,6 +46,25 @@ app.post("/api/v1/login",async (req, res) => {
 
 
 });
+
+app.post("/api/v1/conexao", async (req, res) => {
+    const{
+        id_usuario_a,
+        id_usuario_b
+    } = req.body;
+
+    const conexao = await prisma.conexao.create({
+        data:{
+            id_usuario_a,
+            id_usuario_b
+        }
+    });
+    console.log(conexao);
+    res.status(201).json(conexao);
+});
+
+
+
 app.listen(PORT, () => { 
     console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
