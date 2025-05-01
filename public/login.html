@@ -61,9 +61,17 @@
             icon: "success",
             draggable: true
           });
-
         },
         error: function (xhr) {
+          if(xhr.status == 401) {
+            Swal.fire({
+              title: "Login inválido!",
+              icon: "error",
+              text: "E-mail ou senha incorretos.",
+              draggable: true
+            });
+            return;
+          }
           const msg = xhr.responseJSON?.erro || "Erro ao logar.";
           alert(msg);
         }
