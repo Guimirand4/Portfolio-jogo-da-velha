@@ -220,7 +220,7 @@
 <script>
     const id_player1 = 1; // ID do jogador 1
     const id_player2 = 2; // ID do jogador 2
-    let ultimoJogador = id_player1; // Começa com o jogador 1    
+    let ultimoJogador = null; // Começa com o jogador 1    
 
     $(document).ready(function() { 
         $(".celula").click(function() { 
@@ -237,8 +237,38 @@
             } else {
                 alert("Essa célula já foi preenchida!");
             }
+            verificarVitoria();
+            // Verifica se todas as células estão preenchidas
         });
     });
+
+    function verificarVitoria(){
+        const combinacoes = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+            [1, 4, 7],
+            [2, 5, 8],
+            [3, 6, 9],
+            [1, 5, 9],
+            [3, 5, 7]
+        ];// Lógica para verificar se há um vencedor
+        // Se houver, exibir um alerta ou mensagem de vitória
+        for (let i = 0; i < combinacoes.length; i++) {
+            const [a, b, c] = combinacoes[i];
+            if ($("#celula-" + a).text() === $("#celula-" + b).text() && $("#celula-" + a).text() === $("#celula-" + c).text() && $("#celula-" + a).text() !== "") {
+                
+                Swal.fire({
+                    title: 'Parabéns!',
+                    text: 'Jogador ' + $("#celula-" + a).text() + ' venceu!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+        // Verifica se todas as células estão preenchidas
+        let todasPreenchidas = true;
+    }
 
     function definirJogador(){
         if(ultimoJogador == id_player1){
