@@ -33,19 +33,6 @@ app.post("/api/v1/usuarios", async (req, res) => {
 }
 );
 
-app.post("/api/v1/login",async (req, res) => {
-
-    const {email, senha}= req.body;
-
-    const usuario = await prisma.usuario.findUnique({where:{email,senha}})
-
-    if(!usuario){
-        return res.status(401).json({error: "Erro ao realizar login"});
-    }
-    res.status(200).json({ message: "Login realizado com Sucesso!" });
-
-
-});
 
 app.post("/api/v1/conexao", async (req, res) => {
     const{
@@ -63,6 +50,64 @@ app.post("/api/v1/conexao", async (req, res) => {
     res.status(201).json(conexao);
 });
 
+app.get("/api/v1/conexao", async (req, res) => {
+    const conexao = await prisma.conexao.findMany();
+    res.status(200).json(conexao);
+})
+
+app.post("/api/v1/partidaHistorico", async (req, res) => {
+    const {
+        id_partida,
+        id_usuario,
+        area_jogada,
+        peca_do_jogador
+    } = req.body;
+
+    const ultimaJogada = await prisma.partida_historico.findFirst({
+        where: { id_partida },
+        orderBy: { id: 'desc' },
+    });
+
+    const localOcupado = await prisma.partida_historico.findFirst({
+        where: {
+            area_jogada,
+            id_partida
+        }
+    })
+
+    if(ultimaJogada['id_usuario'] == id_usuario){
+        res.status(422).json('Não é sua vez de jogar');
+    }
+    else if(localOcupado != null){
+        res.status(422).json('Posição ja ocupada');
+    }
+    else{
+        const partida_historico = await prisma.partida_historico.create({
+            data: {
+                id_partida,
+                id_usuario,
+                area_jogada,
+                peca_do_jogador
+            }
+        });
+
+        res.status(201).json(partida_historico);
+    }
+});
+
+app.post("/api/v1/login",async (req, res) => {
+
+    const {email, senha}= req.body;
+
+    const usuario = await prisma.usuario.findUnique({where:{email,senha}})
+
+    if(!usuario){
+        return res.status(401).json({error: "Erro ao realizar login"});
+    }
+    res.status(200).json({ message: "Login realizado com Sucesso!" });
+
+
+});
 
 
 app.listen(PORT, () => { 
