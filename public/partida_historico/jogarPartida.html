@@ -244,6 +244,7 @@
     });
 
     function registraJogada(id_partida, id_usuario, area_jogada, peca_do_jogador){
+        peca_do_jogador = peca_do_jogador.tolowerCase();
         $.ajax({
             url: '/api/v1/partidaHistorico',
             method: 'POST',
