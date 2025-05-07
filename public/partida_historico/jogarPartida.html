@@ -220,6 +220,7 @@
 <script>
     const id_player1 = 1; // ID do jogador 1
     const id_player2 = 2; // ID do jogador 2
+    const id_partida = 1;
     let ultimoJogador = null; // Começa com o jogador 1    
 
     $(document).ready(function() { 
@@ -233,7 +234,7 @@
             let valor = $(this).text();
             if (valor == "") {
                 $(this).text(simbolo);
-                //$(this).css("color", "red");
+                registraJogada(id_partida, ultimoJogador, posicao, simbolo);
             } else {
                 alert("Essa célula já foi preenchida!");
             }
@@ -241,6 +242,26 @@
             // Verifica se todas as células estão preenchidas
         });
     });
+
+    function registraJogada(id_partida, id_usuario, area_jogada, peca_do_jogador){
+        $.ajax({
+            url: '/api/v1/partidaHistorico',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id_partida,
+                id_usuario,
+                area_jogada,
+                peca_do_jogador
+            }),
+            success: function(response) {
+                console.log("Jogada registrada com sucesso:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Erro ao registrar jogada:", error);
+            }
+        });
+    }
 
     function verificarVitoria(){
         const combinacoes = [
