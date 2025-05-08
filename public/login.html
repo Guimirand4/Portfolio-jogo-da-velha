@@ -56,11 +56,10 @@
         contentType: "application/json",
         data: JSON.stringify({ email, senha }),
         success: function (response) {
-          Swal.fire({
-            title: "Login efetuado!",
-            icon: "success",
-            draggable: true
-          });
+          localStorage.setItem('usuarioLogado', JSON.stringify(response));
+          console.log(response);
+         window.location.href = "partida_historico/jogarPartida.html";
+          //alert("Login efetuado com sucesso!");
         },
         error: function (xhr) {
           if(xhr.status == 401) {

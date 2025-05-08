@@ -225,6 +225,7 @@
 
     $(document).ready(function() { 
         $(".celula").click(function() { 
+            crPausado = false;
             const jogadorAtual = definirJogador();
             const simbolo = obterSimbilo(jogadorAtual);
 
@@ -308,4 +309,39 @@
             return "O";
         }
     }
+
+    crHora = 0;
+    crMinuto = 0;
+    crSegundo = 0;
+    crPausado = true;
+
+
+    somarCronometro = function(){
+
+        if(crPausado){
+            return;
+        }   
+  
+        cronometro = document.querySelector(".cronometro");
+
+        crSegundo++;
+        if(crSegundo == 60){
+            crMinuto++;
+            crSegundo = 0;
+        }
+
+        if(crMinuto > 59){
+            crHora++;
+            crMinuto = 0;
+        }
+
+        crHora = crHora.toString().padStart(2, "0");
+        crMinuto = crMinuto.toString().padStart(2, "0");
+        crSegundo = crSegundo.toString().padStart(2, "0");
+
+        horaAEscrever = crHora + ":" + crMinuto + ":" + crSegundo;
+        cronometro.textContent = horaAEscrever;
+
+    }
+    setInterval(somarCronometro, 1000);
 </script>
