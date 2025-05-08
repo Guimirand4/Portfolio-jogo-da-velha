@@ -62,26 +62,6 @@ app.post("/api/v1/partidaHistorico", async (req, res) => {
         area_jogada,
         peca_do_jogador
     } = req.body;
-
-    const ultimaJogada = await prisma.partida_historico.findFirst({
-        where: { id_partida },
-        orderBy: { id: 'desc' },
-    });
-
-    const localOcupado = await prisma.partida_historico.findFirst({
-        where: {
-            area_jogada,
-            id_partida
-        }
-    })
-
-    if(ultimaJogada['id_usuario'] == id_usuario){
-        res.status(422).json('Não é sua vez de jogar');
-    }
-    else if(localOcupado != null){
-        res.status(422).json('Posição ja ocupada');
-    }
-    else{
         const partida_historico = await prisma.partida_historico.create({
             data: {
                 id_partida,
@@ -92,8 +72,7 @@ app.post("/api/v1/partidaHistorico", async (req, res) => {
         });
 
         res.status(201).json(partida_historico);
-    }
-});
+    });
 
 app.post("/api/v1/login",async (req, res) => {
 
