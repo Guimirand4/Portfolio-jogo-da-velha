@@ -221,7 +221,11 @@
     const id_player1 = 1; // ID do jogador 1
     const id_player2 = 2; // ID do jogador 2
     const id_partida = 1;
-    let ultimoJogador = null; // Começa com o jogador 1    
+    let ultimoJogador = null;
+    crHora = 0;
+    crMinuto = 0;
+    crSegundo = 0;
+    crPausado = true; // Começa com o jogador 1    
 
     $(document).ready(function() { 
         $(".celula").click(function() { 
@@ -309,12 +313,6 @@
             return "O";
         }
     }
-
-    crHora = 0;
-    crMinuto = 0;
-    crSegundo = 0;
-    crPausado = true;
-
 
     somarCronometro = function(){
 
