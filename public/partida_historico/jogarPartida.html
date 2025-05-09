@@ -207,6 +207,8 @@
                 Ranqueada
               </div>
               <div class="espectadores">1 </div>
+              <div id="reset"> <input type="button" value="resetar" onclick="resetar()"></div>
+              
 
             </div>
         </div>
@@ -220,7 +222,7 @@
 <script>
     const id_player1 = 1; // ID do jogador 1
     const id_player2 = 2; // ID do jogador 2
-    const id_partida = 1;
+    let id_partida = 1;
     let ultimoJogador = null;
     crHora = 0;
     crMinuto = 0;
@@ -249,7 +251,7 @@
     });
 
     function registraJogada(id_partida, id_usuario, area_jogada, peca_do_jogador){
-        peca_do_jogador = peca_do_jogador.tolowerCase();
+        peca_do_jogador = peca_do_jogador.toLowerCase();
         $.ajax({
             url: '/api/v1/partidaHistorico',
             method: 'POST',
@@ -342,4 +344,20 @@
 
     }
     setInterval(somarCronometro, 1000);
+
+    function resetar(){
+        celulas = document.querySelectorAll(".celula");
+        for (let i = 0; i < celulas.length; i++) {
+            celulas[i].textContent = "";
+        }
+
+        crHora = 0;
+        crMinuto = 0;
+        crSegundo = 0;
+        crPausado = true;
+        id_partida ++;
+        $(".celula").text("");
+        ultimoJogador = null;
+        document.querySelector(".cronometro").textContent = "00:00:00";
+    }
 </script>
