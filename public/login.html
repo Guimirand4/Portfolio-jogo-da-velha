@@ -58,6 +58,10 @@
         success: function (response) {
           localStorage.setItem('usuarioLogado', JSON.stringify(response));
           console.log(response);
+
+          // Armazenar o usuário logado no localStorage
+          localStorage.setItem('usuario', JSON.stringify(response.usuario));
+
          window.location.href = "partida_historico/jogarPartida.html";
           //alert("Login efetuado com sucesso!");
         },

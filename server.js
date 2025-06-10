@@ -83,6 +83,13 @@ app.post("/api/v1/login",async (req, res) => {
     if(!usuario){
         return res.status(401).json({error: "Erro ao realizar login"});
     }
+    const response = {
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        username: usuario.username,
+        avatar: usuario.avatar
+    };
     res.status(200).json({ message: "Login realizado com Sucesso!" });
 
 
