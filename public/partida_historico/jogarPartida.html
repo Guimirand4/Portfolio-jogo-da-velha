@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partida</title>
     <style>
-
-        body {         
+        body {
             background-color: #000000c8;
             color: #ffffff;
             font-family: Ubuntu, sans-serif;
         }
-        .game-container{
+
+        .game-container {
             border: 2px solid #ccc;
             border-radius: 20px;
             max-width: 1200px;
@@ -22,11 +23,11 @@
 
         .top-bar {
             display: flex;
-            justify-content:center;
+            justify-content: center;
             align-items: center;
         }
 
-        
+
 
         .titulo {
             font-size: 28px;
@@ -34,12 +35,12 @@
 
         }
 
-        .painel{
+        .painel {
             display: flex;
             justify-content: space-between;
         }
 
-        .painel-jogador{
+        .painel-jogador {
             border: 2px solid #ccc;
             border-radius: 20px;
             padding: 20px;
@@ -47,7 +48,7 @@
             padding: 15px;
         }
 
-        .avatar{
+        .avatar {
             width: 100px;
             height: 100px;
             border: 2px solid #ccc;
@@ -58,50 +59,51 @@
             margin: 0 auto 10px;
         }
 
-        .info-nome{
+        .info-nome {
             border: 2px solid #ccc;
             border-radius: 8px;
             padding: 4px 10px;
             margin-bottom: 15px;
         }
 
-        .info-id{
+        .info-id {
             font-size: 12px;
             margin-bottom: 65px;
         }
 
-        .simbolo{
+        .simbolo {
             font-size: 50px;
             margin-bottom: 65px;
         }
 
-        .raking{
+        .raking {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             font-size: 16px;
         }
 
-        .raking span:first-child{
+        .raking span:first-child {
             font-size: 12px;
             margin-right: 10px;
             color: #e4e4de
         }
-        .raking span:last-child{
+
+        .raking span:last-child {
             font-size: 20px;
             color: silver;
         }
 
-        .tabuleiro{
+        .tabuleiro {
             display: grid;
             grid-template-columns: repeat(3, 130px);
-            grid-template-rows: repeat(3, 130px);            
+            grid-template-rows: repeat(3, 130px);
             align-items: center;
             justify-items: center;
             margin: 0 20px;
         }
 
-        .celula{
+        .celula {
             width: 130px;
             height: 130px;
             font-size: 40px;
@@ -111,7 +113,7 @@
             color: #ccc;
         }
 
-        .celula:hover{
+        .celula:hover {
             background-color: #fffae681;
             cursor: pointer;
         }
@@ -119,47 +121,47 @@
         .celula:nth-child(1),
         .celula:nth-child(2),
         .celula:nth-child(4),
-        .celula:nth-child(5){
+        .celula:nth-child(5) {
             border-right: 3px solid #ccc;
             border-bottom: 3px solid #ccc;
         }
 
         .celula:nth-child(3),
-        .celula:nth-child(6){
+        .celula:nth-child(6) {
             border-bottom: 3px solid #ccc;
         }
-        
-       
+
+
 
         .celula:nth-child(7),
-        .celula:nth-child(8){
+        .celula:nth-child(8) {
             border-right: 3px solid #ccc;
-        } 
+        }
 
-        .rodape{
+        .rodape {
             margin-top: 30px;
 
         }
 
-        .cronometro{
-            font-size: 20px;         
+        .cronometro {
+            font-size: 20px;
         }
 
-        .modo{
+        .modo {
             font-size: 18px;
             margin-top: 5px;
         }
 
         .rodape .espectadores {
-            font-size: 28px;      
+            font-size: 28px;
         }
-
     </style>
 </head>
+
 <body>
     <div class="game-container">
-        <div class="top-bar">           
-            <div class="titulo">Sua vez</div>            
+        <div class="top-bar">
+            <div class="titulo">Sua vez</div>
         </div>
 
         <div class="painel">
@@ -174,7 +176,7 @@
                 </div>
             </div>
 
-             <div class="tabuleiro">
+            <div class="tabuleiro">
                 <div class="celula" id="celula-1" data-posicao="1"></div>
                 <div class="celula" id="celula-2" data-posicao="2"></div>
                 <div class="celula" id="celula-3" data-posicao="3"></div>
@@ -185,7 +187,7 @@
                 <div class="celula" id="celula-8" data-posicao="8"></div>
                 <div class="celula" id="celula-9" data-posicao="9"></div>
 
-            </div> 
+            </div>
 
             <div class="painel-jogador">
                 <div class="avatar">CS</div>
@@ -197,23 +199,24 @@
                     <span>3</span>
                 </div>
             </div>
-        </div>    
-        
+        </div>
+
         <div class="rodape">
             <div class="cronometro">
                 Cronômetro: 00:00:00
-              </div>
-              <div class="modo">
-                Ranqueada
-              </div>
-              <div class="espectadores">1 </div>
-              <div id="reset"> <input type="button" value="resetar" onclick="resetar()"></div>
-              
-
             </div>
+            <div class="modo">
+                Ranqueada
+            </div>
+            <div class="espectadores">1 </div>
+            <div id="reset"> <input type="button" value="resetar" onclick="resetar()"></div>
+
+
         </div>
-    </div> 
+    </div>
+    </div>
 </body>
+
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -229,8 +232,8 @@
     crSegundo = 0;
     crPausado = true; // Começa com o jogador 1    
 
-    $(document).ready(function() { 
-        $(".celula").click(function() { 
+    $(document).ready(function () {
+        $(".celula").click(function () {
             crPausado = false;
             const jogadorAtual = definirJogador();
             const simbolo = obterSimbilo(jogadorAtual);
@@ -250,7 +253,7 @@
         });
     });
 
-    function registraJogada(id_partida, id_usuario, area_jogada, peca_do_jogador){
+    function registraJogada(id_partida, id_usuario, area_jogada, peca_do_jogador) {
         peca_do_jogador = peca_do_jogador.toLowerCase();
         $.ajax({
             url: '/api/v1/partidaHistorico',
@@ -262,16 +265,16 @@
                 area_jogada,
                 peca_do_jogador
             }),
-            success: function(response) {
+            success: function (response) {
                 console.log("Jogada registrada com sucesso:", response);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Erro ao registrar jogada:", error);
             }
         });
     }
 
-    function verificarVitoria(){
+    function verificarVitoria() {
         const combinacoes = [
             [1, 2, 3],
             [4, 5, 6],
@@ -286,7 +289,7 @@
         for (let i = 0; i < combinacoes.length; i++) {
             const [a, b, c] = combinacoes[i];
             if ($("#celula-" + a).text() === $("#celula-" + b).text() && $("#celula-" + a).text() === $("#celula-" + c).text() && $("#celula-" + a).text() !== "") {
-                
+
                 Swal.fire({
                     title: 'Parabéns!',
                     text: 'Jogador ' + $("#celula-" + a).text() + ' venceu!',
@@ -299,38 +302,38 @@
         let todasPreenchidas = true;
     }
 
-    function definirJogador(){
-        if(ultimoJogador == id_player1){
+    function definirJogador() {
+        if (ultimoJogador == id_player1) {
             ultimoJogador = id_player2;
-        }else{
+        } else {
             ultimoJogador = id_player1;
         }
         return ultimoJogador;
     }
 
-    function obterSimbilo(id_jogador){
-        if(id_jogador == id_player1){
+    function obterSimbilo(id_jogador) {
+        if (id_jogador == id_player1) {
             return "X";
-        }else{
+        } else {
             return "O";
         }
     }
 
-    somarCronometro = function(){
+    somarCronometro = function () {
 
-        if(crPausado){
+        if (crPausado) {
             return;
-        }   
-  
+        }
+
         cronometro = document.querySelector(".cronometro");
 
         crSegundo++;
-        if(crSegundo == 60){
+        if (crSegundo == 60) {
             crMinuto++;
             crSegundo = 0;
         }
 
-        if(crMinuto > 59){
+        if (crMinuto > 59) {
             crHora++;
             crMinuto = 0;
         }
@@ -345,7 +348,7 @@
     }
     setInterval(somarCronometro, 1000);
 
-    function resetar(){
+    function resetar() {
         celulas = document.querySelectorAll(".celula");
         for (let i = 0; i < celulas.length; i++) {
             celulas[i].textContent = "";
@@ -355,9 +358,49 @@
         crMinuto = 0;
         crSegundo = 0;
         crPausado = true;
-        id_partida ++;
+        id_partida++;
         $(".celula").text("");
         ultimoJogador = null;
         document.querySelector(".cronometro").textContent = "00:00:00";
+
     }
+
+    function popularDadosJogador() {
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+        if (usuario) {
+            $(".avatar").text(usuario.iniciais);
+            $(".info-nome").text(usuario.nome);
+            $(".info-id").text("ID: " + usuario.id);
+            $(".simbolo").text(usuario.simbolo);
+            $(".raking span:last-child").text(usuario.ranking);
+        } else {
+            console.error("Usuário não encontrado no localStorage.");
+        }
+    }
+        function criarAvatar() {
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+        const nomes = nome.split(" ");
+        usuario.avatar = `${nomes[0][0].toUpperCase()}${nomes[nomes.length - 1][0].toUpperCase()}`;
+        console.log("Avatar criado:", avatar);
+        return avatar
+    }
+
+        function gerarCorAvatar() {
+            const red = getRandomInt(0, 255);
+            const green = getRandomInt(0, 255);
+            const blue = getRandomInt(0, 255);
+            return `rgb(${red}, ${green}, ${blue})`;
+        }
+
+           function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+
+
+
 </script>
