@@ -406,6 +406,25 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
+        function verificarSeExistePartidaEmAndamento() {
+            $.ajax({
+                url: '/api/v1/partidaHistorico/andamento',
+                method: 'GET',
+                success: function (response) {
+                    if (response && response.id_partida) {
+                        id_partida = response.id_partida;
+                        ultimoJogador = response.ultimo_jogador;
+                        console.log("Partida em andamento encontrada:", response);
+                    } else {
+                        console.log("Nenhuma partida em andamento.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erro ao verificar partida em andamento:", error);
+                }
+            });
+        }
+
 
 
 

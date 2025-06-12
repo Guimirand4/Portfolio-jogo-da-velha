@@ -55,6 +55,16 @@ app.get("/api/v1/conexao", async (req, res) => {
     res.status(200).json(conexao);
 })
 
+app.get("/api/v1/partida/em-andamento", async (req, res) => {
+    const partidas = await prisma.conexao.findMany({
+        where: {
+            status: 'criado'
+        }
+    });
+    res.status(200).json(partidas);
+}
+);
+
 app.post("/api/v1/partidaHistorico", async (req, res) => {
     const {
         id_partida,
