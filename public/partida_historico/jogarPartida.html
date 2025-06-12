@@ -367,7 +367,6 @@
 
     function popularDadosJogador() {
         const usuario = JSON.parse(localStorage.getItem('usuario'));
-
         if (usuario) {
             $(".avatar").text(usuario.iniciais);
             $(".info-nome").text(usuario.nome);
@@ -378,6 +377,7 @@
             console.error("Usuário não encontrado no localStorage.");
         }
     }
+
         function criarAvatar() {
         const usuario = JSON.parse(localStorage.getItem('usuario'));
 
@@ -388,9 +388,9 @@
     }
 
         function gerarCorAvatar() {
-            const red = getRandomInt(0, 255);
-            const green = getRandomInt(0, 255);
-            const blue = getRandomInt(0, 255);
+            const red = getRandomInt(80, 255);
+            const green = getRandomInt(80, 255);
+            const blue = getRandomInt(80, 255);
             return `rgb(${red}, ${green}, ${blue})`;
         }
 
