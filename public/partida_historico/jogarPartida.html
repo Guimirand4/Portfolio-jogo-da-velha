@@ -233,6 +233,8 @@
     crPausado = true; // Começa com o jogador 1    
 
     $(document).ready(function () {
+        popularDadosJogador();
+        
         $(".celula").click(function () {
             crPausado = false;
             const jogadorAtual = definirJogador();
@@ -367,12 +369,16 @@
 
     function popularDadosJogador() {
         const usuario = JSON.parse(localStorage.getItem('usuario'));
+        const jogador = 'first'
         if (usuario) {
-            $(".avatar").text(usuario.iniciais);
-            $(".info-nome").text(usuario.nome);
-            $(".info-id").text("ID: " + usuario.id);
-            $(".simbolo").text(usuario.simbolo);
-            $(".raking span:last-child").text(usuario.ranking);
+            const avatar = criarAvatar(usuario.nome);
+            $(`.avatar:${jogador}`).text(avatar);
+            $(`.avatar:${jogador}`).css("background-color", gerarCorAvatar());
+
+            $(`.info-nome:${jogador}`).text(usuario.nome);
+            $(`.info-id:${jogador}`).text("ID: " + usuario.id);
+            $(`.simbolo:${jogador}`).text("X");
+            $(`.raking:${jogador} span:last-child`).text("---");
         } else {
             console.error("Usuário não encontrado no localStorage.");
         }
