@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partida</title>
-    <script
-  src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
-  type="module"
-></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <style>
         body {
             background-color: #000000c8;
@@ -169,7 +166,7 @@
             height: 100%;
             background-color: rgba(245, 132, 132, 0.5);
             z-index: 1000;
-            display: flex ;
+            display: flex;
             justify-content: center;
             align-items: center;
         }
@@ -233,17 +230,11 @@
         </div>
     </div>
     </div>
-    <div id="modal loading">
+    <div id="modal-loading" class="modal" style="display: none;">
         <div class="modal-content">
             <h2>Carregando...</h2>
-            <dotlottie-player
-  src="https://lottie.host/1d59e4a2-5f9c-459a-beac-34fc310bc2f3/ZPwmcAMgZ2.lottie"
-  background="transparent"
-  speed="1"
-  style="width: 300px; height: 300px"
-  loop
-  autoplay
-></dotlottie-player>
+            <dotlottie-player src="https://lottie.host/1d59e4a2-5f9c-459a-beac-34fc310bc2f3/ZPwmcAMgZ2.lottie"
+                background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
             <p>Aguarde enquanto os dados estão sendo carregados.</p>
         </div>
 
@@ -460,6 +451,7 @@
                 } else {
                     console.log("Nenhuma partida em andamento.");
                     toggleModalLoading();
+                    criarNovaPartida();
                 }
             },
             error: function (xhr, status, error) {
@@ -468,7 +460,31 @@
         });
     }
 
+    function criarNovaPartida() {
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
+        if (!usuarioLogado) {
+            console.error("Usuário não encontrado");
+            return;
+        }
+        const dados = {
+            id_usuario: usuarioLogado.id
 
+        };
+        $.ajax({
+            url: '/api/v1/partidaHistorico',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(dados), 
+            success: function (response) {
+                localStorage.setItem('partida', JSON.stringify(response));
+                console.log("Nova partida criada com sucesso:", response);
+                toggleModalLoading();
+            },  
+            error: function (xhr, status, error) {
+                console.error("Erro ao criar nova partida:", error);
+            }
+        });
+    }
 
 
 </script>

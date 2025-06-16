@@ -86,6 +86,24 @@ app.post("/api/v1/partidaHistorico", async (req, res) => {
         res.status(201).json(partida_historico);
     });
 
+
+app.post("/api/v1/partida", async (req, res) => {
+    const {
+        id_usuario,
+    } = req.body;
+
+    const partida = await prisma.partida.create({
+        data: {
+            id_usuario_a: id_usuario,
+            id_usuario_b: null,
+            status: 'criado'
+        }
+    });
+
+    res.status(201).json(partida);
+}
+);
+
 app.post("/api/v1/login",async (req, res) => {
 
     const {email, senha}= req.body;

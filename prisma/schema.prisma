@@ -27,7 +27,7 @@ enum Status {
 model Conexao {
   id              Int      @id @default(autoincrement())
   id_usuario_a    Int
-  id_usuario_b    Int
+  id_usuario_b    Int?
   data_solicitacao DateTime @default(now())
   status          Status  @default(criado)
 }
