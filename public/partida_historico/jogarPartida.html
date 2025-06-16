@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partida</title>
+    <script
+  src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+  type="module"
+></script>
     <style>
         body {
             background-color: #000000c8;
@@ -155,6 +159,20 @@
         .rodape .espectadores {
             font-size: 28px;
         }
+
+        #modal-loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(245, 132, 132, 0.5);
+            z-index: 1000;
+            display: flex ;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -215,6 +233,21 @@
         </div>
     </div>
     </div>
+    <div id="modal loading">
+        <div class="modal-content">
+            <h2>Carregando...</h2>
+            <dotlottie-player
+  src="https://lottie.host/1d59e4a2-5f9c-459a-beac-34fc310bc2f3/ZPwmcAMgZ2.lottie"
+  background="transparent"
+  speed="1"
+  style="width: 300px; height: 300px"
+  loop
+  autoplay
+></dotlottie-player>
+            <p>Aguarde enquanto os dados estão sendo carregados.</p>
+        </div>
+
+    </div>
 </body>
 
 </html>
@@ -234,7 +267,7 @@
 
     $(document).ready(function () {
         popularDadosJogador();
-        
+
         $(".celula").click(function () {
             crPausado = false;
             const jogadorAtual = definirJogador();
@@ -384,7 +417,7 @@
         }
     }
 
-        function criarAvatar() {
+    function criarAvatar() {
         const usuario = JSON.parse(localStorage.getItem('usuario'));
 
         const nomes = nome.split(" ");
@@ -393,37 +426,47 @@
         return avatar
     }
 
-        function gerarCorAvatar() {
-            const red = getRandomInt(80, 255);
-            const green = getRandomInt(80, 255);
-            const blue = getRandomInt(80, 255);
-            return `rgb(${red}, ${green}, ${blue})`;
-        }
+    function gerarCorAvatar() {
+        const red = getRandomInt(80, 255);
+        const green = getRandomInt(80, 255);
+        const blue = getRandomInt(80, 255);
+        return `rgb(${red}, ${green}, ${blue})`;
+    }
 
-           function getRandomInt(min, max) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-        function verificarSeExistePartidaEmAndamento() {
-            $.ajax({
-                url: '/api/v1/partidaHistorico/andamento',
-                method: 'GET',
-                success: function (response) {
-                    if (response && response.id_partida) {
-                        id_partida = response.id_partida;
-                        ultimoJogador = response.ultimo_jogador;
-                        console.log("Partida em andamento encontrada:", response);
-                    } else {
-                        console.log("Nenhuma partida em andamento.");
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Erro ao verificar partida em andamento:", error);
+    function toggleModalLoading() {
+        const modal = $('#modal-loading');
+        if (modal.is(':visible')) {
+            modal.hide();
+        } else {
+            modal.show();
+        }
+    }
+
+    function verificarSeExistePartidaEmAndamento() {
+        $.ajax({
+            url: '/api/v1/partidaHistorico/andamento',
+            method: 'GET',
+            success: function (response) {
+                if (response && response.id_partida) {
+                    id_partida = response.id_partida;
+                    ultimoJogador = response.ultimo_jogador;
+                    console.log("Partida em andamento encontrada:", response);
+                } else {
+                    console.log("Nenhuma partida em andamento.");
+                    toggleModalLoading();
                 }
-            });
-        }
+            },
+            error: function (xhr, status, error) {
+                console.error("Erro ao verificar partida em andamento:", error);
+            }
+        });
+    }
 
 
 
