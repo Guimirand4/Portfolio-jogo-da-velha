@@ -125,11 +125,33 @@ app.post("/api/v1/login",async (req, res) => {
 
 });
 
+//criar um endpoint get que retorna os dados do usuario por meio do id
+app.get("/api/v1/usuario/:id", async (req, res) => {
+    const { id } = req.params;
+
+    const usuario = await prisma.usuario.findUnique({
+        where: { id: Number(id_usuario) }
+    });
+
+    if (usuario == null) {
+        return res.status(404).json({ error: "Usuário não encontrado" });
+    } else {
+            const response = {
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        username: usuario.username,
+        avatar: usuario.avatar
+            }
+    };
+    res.status(200).json(response);
+});
+
 app.put("/api/v1/partida/:id_partida", async (req, res) => {
     const { id_partida } = req.params;
     const { id_usuario_b } = req.body;
 
-        const partida = await prisma.partida.update({
+        const partida = await prisma.conexao.update({
             where: { id: Number(id_partida) },
             data: { 
                 id_usuario_b, 

@@ -493,12 +493,35 @@
             popularDadosJogador("first");
             console.log("Usuario é o Jogador A: ", usuarioLogado);
         }else if(partidas[0].id_usuario_b == usuarioLogado.id){
+            IngressarUsuarioNaPartida(partidas[0].id, usuarioLogado.id);
             popularDadosJogador("last");
             console.log("Usuario é o Jogador B: ", usuarioLogado);
         }else{
             console.log("Usuário não está na partida em andamento.");
             return;
         }
+    }
+
+    function IngressarUsuarioNaPartida(idPartida, idUsuario) {
+        const dados = {
+            id_partida: idPartida,
+            id_usuario_b: idUsuario
+        };
+
+        $.ajax({
+            url: `/api/v1/partida/${idPartida}`,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(dados),
+            success: function (response) {
+                console.log("Usuário ingressou na partida com sucesso:", response);
+                localStorage.setItem('partida', JSON.stringify(response));
+            
+            },
+            error: function (xhr, status, error) {
+                console.error("Erro ao ingressar usuário na partida:", error);
+            }
+        });
     }
 
 </script>
