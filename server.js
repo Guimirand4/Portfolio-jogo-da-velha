@@ -125,7 +125,22 @@ app.post("/api/v1/login",async (req, res) => {
 
 });
 
+app.put("/api/v1/partida/:id_partida", async (req, res) => {
+    const { id_partida } = req.params;
+    const { id_usuario_b } = req.body;
+
+        const partida = await prisma.partida.update({
+            where: { id: Number(id_partida) },
+            data: { 
+                id_usuario_b, 
+                status: 'andamento'
+             }
+    });
+});
+
 
 app.listen(PORT, () => { 
     console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+
+

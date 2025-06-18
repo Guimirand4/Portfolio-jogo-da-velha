@@ -391,9 +391,9 @@
 
     }
 
-    function popularDadosJogador() {
+    function popularDadosJogador(jogador) {
         const usuario = JSON.parse(localStorage.getItem('usuario'));
-        const jogador = 'first'
+        
         if (usuario) {
             const avatar = criarAvatar(usuario.nome);
             $(`.avatar:${jogador}`).text(avatar);
@@ -446,6 +446,7 @@
             success: function (response) {
                 if (response.length > 0) {
                     console.log("Partida em andamento encontrada:", response);
+                    processarPartidaEmAndamento(response);
                 } else {
                     console.log("Nenhuma partida em andamento.");
                     toggleModalLoading();
@@ -484,5 +485,20 @@
         });
     }
 
+    function processarPartidaEmAndamento(partidas) {
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
+        const partida = JSON.parse(localStorage.getItem('partida'));
+        
+        if(partidas[0].id_usuario_a == usuarioLogado.id){
+            popularDadosJogador("first");
+            console.log("Usuario é o Jogador A: ", usuarioLogado);
+        }else if(partidas[0].id_usuario_b == usuarioLogado.id){
+            popularDadosJogador("last");
+            console.log("Usuario é o Jogador B: ", usuarioLogado);
+        }else{
+            console.log("Usuário não está na partida em andamento.");
+            return;
+        }
+    }
 
 </script>
