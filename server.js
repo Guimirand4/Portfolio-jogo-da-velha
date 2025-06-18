@@ -128,7 +128,6 @@ app.post("/api/v1/login",async (req, res) => {
 //criar um endpoint get que retorna os dados do usuario por meio do id
 app.get("/api/v1/usuario/:id", async (req, res) => {
     const { id } = req.params;
-
     const usuario = await prisma.usuario.findUnique({
         where: { id: Number(id_usuario) }
     });

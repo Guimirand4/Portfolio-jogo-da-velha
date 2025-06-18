@@ -524,4 +524,18 @@
         });
     }
 
+    function BuscarDadosUsuario(idUsuario) {
+        $.ajax({
+            url: `/api/v1/usuario/${idUsuario}`,
+            method: 'GET',
+            success: function (response) {
+                console.log("Dados do usuário carregados:", response);
+                localStorage.setItem('usuarioAdversario', JSON.stringify(response));
+            },
+            error: function (xhr) {
+                console.error("Erro ao buscar dados do usuário:", xhr);
+            }
+        });
+    }
+
 </script>
