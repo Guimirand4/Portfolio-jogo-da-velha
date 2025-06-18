@@ -441,12 +441,10 @@
 
     function verificarSeExistePartidaEmAndamento() {
         $.ajax({
-            url: '/api/v1/partidaHistorico/andamento',
+            url: '/api/v1/partida/em-andamento',
             method: 'GET',
             success: function (response) {
-                if (response && response.id_partida) {
-                    id_partida = response.id_partida;
-                    ultimoJogador = response.ultimo_jogador;
+                if (response.length > 0) {
                     console.log("Partida em andamento encontrada:", response);
                 } else {
                     console.log("Nenhuma partida em andamento.");
