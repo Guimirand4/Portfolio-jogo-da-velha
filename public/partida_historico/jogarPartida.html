@@ -488,15 +488,23 @@
     function processarPartidaEmAndamento(partidas) {
         const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
         const partida = JSON.parse(localStorage.getItem('partida'));
+
+        if(partidas[0].id_usuario_a != usuarioLogado.id && 
+            partidas[0].id_usuario_b != usuarioLogado.id){
+           console.log("Usuário não está na partida em andamento.");
+           BuscarDadosUsuario(usuarioLogado.id);
+           return;
+        }
         
         if(partidas[0].id_usuario_a == usuarioLogado.id){
             popularDadosJogador("first");
             console.log("Usuario é o Jogador A: ", usuarioLogado);
-        }else if(partidas[0].id_usuario_b == usuarioLogado.id){
-            IngressarUsuarioNaPartida(partidas[0].id, usuarioLogado.id);
+        }else if(partidas[0].id_usuario_b == usuarioLogado.id){         
             popularDadosJogador("last");
             console.log("Usuario é o Jogador B: ", usuarioLogado);
         }else{
+            IngressarUsuarioNaPartida(partidas[0].id, usuarioLogado.id);
+            popularDadosJogador("last");
             console.log("Usuário não está na partida em andamento.");
             return;
         }
